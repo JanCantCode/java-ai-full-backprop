@@ -4,6 +4,8 @@ import tk.jandev.neuralnetwork.layers.HiddenLayer;
 import tk.jandev.neuralnetwork.layers.InputLayer;
 import tk.jandev.neuralnetwork.layers.Layer;
 
+import java.util.Arrays;
+
 public class NeuralNetwork {
     private final InputLayer inputLayer;
     private final HiddenLayer[] layers;
@@ -99,7 +101,7 @@ public class NeuralNetwork {
             }
         }
 
-        for (int layer = this.layers.length - 2; layer <= 1; layer--) {
+        for (int layer = this.layers.length - 2; layer >= 1; layer--) {
             HiddenLayer nextLayer = this.layers[layer + 1];
             HiddenLayer currentLayer = this.layers[layer];
             HiddenLayer previousLayer = this.layers[layer - 1];
@@ -118,10 +120,9 @@ public class NeuralNetwork {
                 }
             }
         }
+    }
 
-
-
-        
-
+    public HiddenLayer[] getLayers() {
+        return this.layers;
     }
 }

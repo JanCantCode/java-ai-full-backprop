@@ -2,6 +2,7 @@ package tk.jandev;
 
 
 import tk.jandev.neuralnetwork.NeuralNetwork;
+import tk.jandev.neuralnetwork.Node;
 import tk.jandev.neuralnetwork.activations.Activation;
 import tk.jandev.neuralnetwork.layers.HiddenLayer;
 import tk.jandev.neuralnetwork.layers.InputLayer;
@@ -17,22 +18,29 @@ public class Main {
 
         InputLayer inputLayer = new InputLayer(1);
 
-        HiddenLayer hiddenLayer = new HiddenLayer(1, 1, Activation.IDENTITY);
-        HiddenLayer hiddenLayer2 = new HiddenLayer(1, 1, Activation.IDENTITY);
+        HiddenLayer hiddenLayer = new HiddenLayer(1, 3, Activation.IDENTITY);
+        HiddenLayer hiddenLayer2 = new HiddenLayer(3, 1, Activation.IDENTITY);
         HiddenLayer hiddenLayer3 = new HiddenLayer(1, 1, Activation.IDENTITY);
-        HiddenLayer hiddenLayer4 = new HiddenLayer(1, 1, Activation.IDENTITY);
-        HiddenLayer outputLayer = new HiddenLayer(1, 1, Activation.IDENTITY);
 
-        NeuralNetwork network = new NeuralNetwork(inputLayer, new HiddenLayer[]{hiddenLayer, hiddenLayer2, hiddenLayer3, hiddenLayer4, outputLayer});
 
-        System.out.println("output of 1.0 "+Arrays.toString(network.feed(new double[]{100.0})));
-        System.out.println("training lol");
+        NeuralNetwork network = new NeuralNetwork(inputLayer, new HiddenLayer[]{hiddenLayer, hiddenLayer2, hiddenLayer3});
+
+        System.out.println("Before training: "+ Arrays.toString(network.feed(new double[]{1.0})));
 
         for (int i = 0; i < trainingInput.length; i++) {
             network.fullBackpropagation(new double[]{trainingInput[i]}, new double[]{trainingOutput[i]}, 0.001);
         }
+        DecimalFormat format = new DecimalFormat("##.#####");
 
-        System.out.println("After training: "+Arrays.toString(network.feed(new double[]{100.0})));
+        System.out.println("After training "+format.format(network.feed(new double[]{1.0})[0]));
+
+        for (HiddenLayer layer : network.getLayers()) {
+            for (Node node : layer.getNodes()) {
+                System.out.println(Arrays.toString(node.getWeights()));
+            }
+        }
+
+
 
     }
 

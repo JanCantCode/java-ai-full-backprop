@@ -9,7 +9,7 @@ public class Helper {
 
         for (int i = 0; i < amount; i++) {
             nodes[i] = new Node(algorithm);
-            nodes[i].setWeights(makeNumbers(amount));
+            nodes[i].setWeights(makeNumbers(amountInPrevious));
         }
 
         return nodes;

@@ -2,6 +2,8 @@ package tk.jandev.neuralnetwork;
 
 import tk.jandev.neuralnetwork.activations.Activation;
 
+import java.util.Arrays;
+
 public class Node {
     private double acitvation;
     private double temporary;
